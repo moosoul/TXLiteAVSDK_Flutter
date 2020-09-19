@@ -1,5 +1,6 @@
 #import "TxLiteAvSdkPlugin.h"
 #import "TxLiteAvSdkLivePlayerFactory.h"
+#import "TxLiteAvSdkLivePushFactory.h"
 @import TXLiteAVSDK_Professional;
 
 
@@ -11,8 +12,12 @@
   TxLiteAvSdkPlugin* instance = [[TxLiteAvSdkPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 
-  TxLiteAvSdkLivePlayerFactory* factory = [[TxLiteAvSdkLivePlayerFactory alloc] initWithMessenger:registrar.messenger];
-  [registrar registerViewFactory:factory withId:@"tx_lite_av_sdk_live_player"];
+  TxLiteAvSdkLivePlayerFactory* playerFactory = [[TxLiteAvSdkLivePlayerFactory alloc] initWithMessenger:registrar.messenger];
+  [registrar registerViewFactory:playerFactory withId:@"tx_lite_av_sdk_live_player"];
+  
+  TxLiteAvSdkLivePushFactory* pushFactory = [[TxLiteAvSdkLivePushFactory alloc] initWithMessenger:registrar.messenger];
+  [registrar registerViewFactory:pushFactory withId:@"tx_lite_av_sdk_live_push"];
+  
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {

@@ -15,8 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  Widget _player = TxLiteAvSdk.getPlayer();
-
+  TxLiteAvSdkPush _push = TxLiteAvSdkPush();
   @override
   void initState() {
     super.initState();
@@ -30,8 +29,8 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion = await TxLiteAvSdk.platformVersion;
       await TxLiteAvSdk.registerApp(
-        "http://license.vod2.myqcloud.com/license/v1/c6e6080bd4e528093184708558b0c703/TXLiveSDK.licence",
-        "ee8ae03f7d78437f700affa2feb65f5c",
+        "http://license.vod2.myqcloud.com/license/v1/8a04ed90353d29d10d431478c83058f0/TXLiveSDK.licence",
+        "4f819a16063dd7b2ce30754c99970b14",
       );
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
@@ -57,17 +56,32 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              Text('Running on: $_platformVersion\n'),
-              _player,
-              FlatButton(
-                onPressed: () {
-                  TxLiteAvSdk.startPlay(
-                    'https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8',
-                    4,
-                  );
-                },
-                child: Text('start play'),
-              ),
+              _push,
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  children: [
+                    FlatButton(
+                      onPressed: () {
+                        _push.startPreview();
+                        // _playerController.startPlay(
+                        //   'https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8',
+                        //   4,
+                        // );
+                      },
+                      child: Text('预览'),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        _push.startPush(
+                          'rtmp://93873.livepush.myqcloud.com/live/live?txSecret=1066b23fe94374af9d9e453d914960ea&txTime=5F6EA2DC',
+                        );
+                      },
+                      child: Text('开始直播'),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

@@ -2,7 +2,7 @@ PODS:
   - Flutter (1.0.0)
   - tx_lite_av_sdk (0.0.1):
     - Flutter
-    - TXLiteAVSDK_Professional
+    - TXLiteAVSDK_Professional (= 7.6.9360)
   - TXLiteAVSDK_Professional (7.6.9360)
 
 DEPENDENCIES:
@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  tx_lite_av_sdk: 6467407bee7cffb7783207463365e60688a2b09c
+  tx_lite_av_sdk: 2a914d200ec3b8d5cbe3eba28bd7eb24f1a149ab
   TXLiteAVSDK_Professional: 0993da88b243cba8250f027903f8b5f0c08be1fa
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
