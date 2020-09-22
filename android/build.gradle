@@ -33,8 +33,15 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
     dependencies {
-        implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:latest.release'
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 
     packagingOptions {
