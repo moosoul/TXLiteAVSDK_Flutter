@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:tx_lite_av_sdk/tx_lite_av_sdk.dart';
+import 'package:tx_lite_av_sdk/tx_lite_av_sdk_enums.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  TxLiteAvSdkPush _push = TxLiteAvSdkPush();
+  TxLiteAvSdkPusher _pusher = TxLiteAvSdkPusher();
+  TxLiteAvSdkPlayer _player = TxLiteAvSdkPlayer();
   @override
   void initState() {
     super.initState();
@@ -28,10 +30,9 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await TxLiteAvSdk.platformVersion;
-      await TxLiteAvSdk.registerApp(
-        "http://license.vod2.myqcloud.com/license/v1/8a04ed90353d29d10d431478c83058f0/TXLiveSDK.licence",
-        "4f819a16063dd7b2ce30754c99970b14",
-      );
+      String licenceURL = "";
+      String licenceKey = "";
+      await TxLiteAvSdk.registerApp(licenceURL, licenceKey);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -56,24 +57,30 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              _push,
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Container(
+                  width: 320,
+                  child: _pusher,
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.all(20),
                 child: Row(
                   children: [
                     FlatButton(
                       onPressed: () {
-                        _push.startPreview();
-                        // _playerController.startPlay(
-                        //   'https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8',
-                        //   4,
+                        _pusher.startPreview();
+                        // _player.startPlay(
+                        //   "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+                        //   TX_Enum_PlayType.PLAY_TYPE_VOD_HLS,
                         // );
                       },
                       child: Text('预览'),
                     ),
                     FlatButton(
                       onPressed: () {
-                        _push.startPush(
+                        _pusher.startPush(
                           'rtmp://93873.livepush.myqcloud.com/live/live?txSecret=1066b23fe94374af9d9e453d914960ea&txTime=5F6EA2DC',
                         );
                       },

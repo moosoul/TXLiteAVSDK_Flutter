@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
 import './tx_lite_av_sdk_enums.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 typedef void OnCreated(int id);
 typedef void OnTap();
@@ -61,7 +62,7 @@ class TxLiteAvSdkPlayer extends StatefulWidget {
   Future<int> startPlay(String url, TX_Enum_PlayType type) async {
     return await _channel.invokeMethod('startPlay', {
       "url": url,
-      "type": type,
+      "type": type.index,
     });
   }
 
@@ -127,6 +128,11 @@ class TxLiteAvSdkPlayer extends StatefulWidget {
   Future<void> showVideoDebugLog(bool isShow) async {
     return await _channel.invokeMethod("showVideoDebugLog", {"isShow": isShow});
   }
+
+  Future<void> setText(String text) async {
+    assert(text != null);
+    return _channel.invokeMethod('setText', text);
+  }
 }
 
 class _TxLiteAvSdkPlayerState extends State<TxLiteAvSdkPlayer> {
@@ -144,7 +150,7 @@ class _TxLiteAvSdkPlayerState extends State<TxLiteAvSdkPlayer> {
       );
     } else if (Platform.isAndroid) {
       return AndroidView(
-        viewType: 'tx_lite_av_live_player',
+        viewType: 'tx_lite_av_sdk_live_player',
         creationParams: <String, dynamic>{"text": "Android"},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int id) {
@@ -156,16 +162,17 @@ class _TxLiteAvSdkPlayerState extends State<TxLiteAvSdkPlayer> {
   }
 }
 
-class TxLiteAvSdkPush extends StatefulWidget {
+class TxLiteAvSdkPusher extends StatefulWidget {
   MethodChannel _channel;
 
   @override
   State<StatefulWidget> createState() {
-    return _TxLiteAvSdkPushState();
+    return _TxLiteAvSdkPusherState();
   }
 
   /// 开始预览
   Future<int> startPreview() async {
+    await [Permission.camera].request();
     return await _channel.invokeMethod('startPreview');
   }
 
@@ -276,26 +283,26 @@ class TxLiteAvSdkPush extends StatefulWidget {
   }
 }
 
-class _TxLiteAvSdkPushState extends State<TxLiteAvSdkPush> {
+class _TxLiteAvSdkPusherState extends State<TxLiteAvSdkPusher> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return UiKitView(
-        viewType: 'tx_lite_av_sdk_live_push',
+        viewType: 'tx_lite_av_sdk_live_pusher',
         creationParams: <String, dynamic>{"text": "iOS"},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int id) {
-          widget._channel = MethodChannel('tx_lite_av_sdk_live_push_$id');
+          widget._channel = MethodChannel('tx_lite_av_sdk_live_pusher_$id');
           print('channel id: ${widget._channel.name}');
         },
       );
     } else if (Platform.isAndroid) {
       return AndroidView(
-        viewType: 'tx_lite_av_sdk_live_push',
+        viewType: 'tx_lite_av_sdk_live_pusher',
         creationParams: <String, dynamic>{"text": "Android"},
         creationParamsCodec: const StandardMessageCodec(),
         onPlatformViewCreated: (int id) {
-          widget._channel = MethodChannel('tx_lite_av_sdk_live_push_$id');
+          widget._channel = MethodChannel('tx_lite_av_sdk_live_pusher_$id');
           print('channel id: ${widget._channel.name}');
         },
       );
