@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'tx_lite_av_sdk'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -16,7 +16,7 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'TXLiteAVSDK_Professional', '7.6.9360'
+  s.dependency 'TXLiteAVSDK_Professional'
   s.platform = :ios, '8.0'
   s.static_framework = true
 

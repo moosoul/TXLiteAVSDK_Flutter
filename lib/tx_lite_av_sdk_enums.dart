@@ -26,13 +26,11 @@ enum TX_Enum_Type_VideoQuality {
 
 /// 播放器类型
 enum TX_Enum_PlayType {
-  NONE,
-
   /// RTMP 直播
-  PLAY_TYPE_LIVE_RTMP0,
+  PLAY_TYPE_LIVE_RTMP,
 
   /// FLV 直播
-  PLAY_TYPE_LIVE_FLV1,
+  PLAY_TYPE_LIVE_FLV,
 
   /// FLV 点播
   PLAY_TYPE_VOD_FLV,

@@ -22,12 +22,7 @@
 - (instancetype)initWithFrame:(CGRect)frame viewId:(NSInteger)viewId args: (id)args messenger:(NSObject<FlutterBinaryMessenger>*)messenger{
   if (self = [super init]) {
     self.contentView = [[UIView alloc] initWithFrame:frame];
-    
-    UITapGestureRecognizer *singleFingerTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self
-                                            action:@selector(handleSingleTap:)];
-    [self.contentView addGestureRecognizer:singleFingerTap];
-    
+        
     self.livePlayer = [[TXLivePlayer alloc] init];
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.contentView insertIndex:0];
     
@@ -49,7 +44,7 @@
 }
 
 - (void)startPlay:(FlutterMethodCall * _Nonnull)call result:(FlutterResult  _Nonnull)result {
-  NSString *url = [[call.arguments objectForKey:@"url"] stringValue];
+  NSString *url = [call.arguments objectForKey:@"url"];
   TX_Enum_PlayType type = [[call.arguments objectForKey:@"type"] integerValue];
   [self.livePlayer startPlay:url type:type];
 }
@@ -72,10 +67,6 @@
   result(@(isPlaying));
 }
 
-- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
-{
-  NSLog(@"HANDLE SINGLE TAP");
-}
 
 
 - (UIView *)view{

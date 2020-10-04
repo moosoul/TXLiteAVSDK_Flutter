@@ -16,7 +16,7 @@
   [registrar registerViewFactory:playerFactory withId:@"tx_lite_av_sdk_live_player"];
   
   TxLiteAvSdkLivePushFactory* pushFactory = [[TxLiteAvSdkLivePushFactory alloc] initWithMessenger:registrar.messenger];
-  [registrar registerViewFactory:pushFactory withId:@"tx_lite_av_sdk_live_push"];
+  [registrar registerViewFactory:pushFactory withId:@"tx_lite_av_sdk_live_pusher"];
   
 }
 
@@ -31,7 +31,7 @@
 }
 
 - (void)registerApp:(FlutterMethodCall *)call result:(FlutterResult)result {
-  [TXLiveBase setLogLevel:LOGLEVEL_ERROR];
+  [TXLiveBase setLogLevel:LOGLEVEL_VERBOSE];
   NSString *licenceURL = [call.arguments objectForKey:@"licenceURL"];
   NSString *licenceKey = [call.arguments objectForKey:@"licenceKey"];
   [TXLiveBase setLicenceURL:licenceURL key:licenceKey];

@@ -27,11 +27,11 @@
     TXLivePushConfig *_config = [[TXLivePushConfig alloc] init];  // 一般情况下不需要修改默认 config
     self.push = [[TXLivePush alloc] initWithConfig: _config]; // config 参数不能为空
  
-    self.channel = [FlutterMethodChannel methodChannelWithName:[NSString stringWithFormat:@"tx_lite_av_sdk_live_push_%ld", (long)viewId] binaryMessenger:messenger];
+    self.channel = [FlutterMethodChannel methodChannelWithName:[NSString stringWithFormat:@"tx_lite_av_sdk_live_pusher_%ld", (long)viewId] binaryMessenger:messenger];
 
     __weak typeof(self) weakSelf = self;
     [self.channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-      NSLog(@"tx_lite_av_sdk_live_push call method: %@, arguments: %@", call.method, call.arguments);
+      NSLog(@"tx_lite_av_sdk_live_pusher call method: %@, arguments: %@", call.method, call.arguments);
       NSString *method = [NSString stringWithFormat:@"%@:result:", call.method];
       SEL selector = NSSelectorFromString(method);
       if ([weakSelf respondsToSelector:selector]) {

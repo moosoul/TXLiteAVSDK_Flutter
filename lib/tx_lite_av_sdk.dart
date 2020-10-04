@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import './tx_lite_av_sdk_enums.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+export './tx_lite_av_sdk_enums.dart';
+
 typedef void OnCreated(int id);
 typedef void OnTap();
 
