@@ -9,12 +9,13 @@
 @import Flutter;
 @import TXLiteAVSDK_Professional;
 
-@interface TxLiteAvSdkLivePlayer()
+@interface TxLiteAvSdkLivePlayer()<TXLivePlayListener, FlutterStreamHandler>
 
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) TXLivePlayer *livePlayer;
 @property (nonatomic, strong) FlutterMethodChannel *channel;
-
+@property (nonatomic, strong) FlutterEventChannel *eventChannel;
+@property (nonatomic, weak) FlutterEventSink eventSink;
 @end
 
 @implementation TxLiteAvSdkLivePlayer
@@ -25,8 +26,11 @@
         
     self.livePlayer = [[TXLivePlayer alloc] init];
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.contentView insertIndex:0];
-    
+    self.livePlayer.delegate = self;
     self.channel = [FlutterMethodChannel methodChannelWithName:[NSString stringWithFormat:@"tx_lite_av_sdk_live_player_%ld", (long)viewId] binaryMessenger:messenger];
+    self.eventChannel = [FlutterEventChannel eventChannelWithName:@"com.moosoul.tx_lite_av_sdk_live_player_event" binaryMessenger:messenger];
+    [self.eventChannel setStreamHandler:self];
+
     
     __weak typeof(self) weakSelf = self;
     [self.channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
@@ -67,10 +71,42 @@
   result(@(isPlaying));
 }
 
+- (void)setRenderRotation:(FlutterMethodCall * _Nonnull)call resuult:(FlutterResult _Nonnull)result  {
+  
+  TX_Enum_Type_HomeOrientation orientation = [[call.arguments objectForKey:@"orientation"] integerValue];
+  [self.livePlayer setRenderRotation: orientation];
+  result(@(orientation));
+  
+//  typedef NS_ENUM(NSInteger, TX_Enum_Type_HomeOrientation) {
+//    HOME_ORIENTATION_RIGHT     = 0,    ///< HOME 键在右边，横屏模式
+//    HOME_ORIENTATION_DOWN      = 1,    ///< HOME 键在下面，手机直播中最常见的竖屏直播模式
+//    HOME_ORIENTATION_LEFT      = 2,    ///< HOME 键在左边，横屏模式
+//    HOME_ORIENTATION_UP        = 3,    ///< HOME 键在上边，竖屏直播（适合小米 MIX2）
+//  };
+  
+}
 
 
 - (UIView *)view{
   return self.contentView;
+}
+
+- (void)onNetStatus:(NSDictionary *)param {
+  
+}
+
+- (void)onPlayEvent:(int)EvtID withParam:(NSDictionary *)param {
+  NSLog(@"tx_lite_av_sdk_live_player on play event %d", EvtID);
+  self.eventSink(@(EvtID));
+}
+
+- (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)events {
+  self.eventSink = events;
+  return nil;
+}
+
+- (FlutterError *)onCancelWithArguments:(id)arguments {
+  return nil;
 }
 
 @end

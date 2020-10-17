@@ -70,6 +70,7 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     FlatButton(
                       onPressed: () {
+                        _pusher.setMirror(true);
                         _pusher.startPreview();
                         // _player.startPlay(
                         //   "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",

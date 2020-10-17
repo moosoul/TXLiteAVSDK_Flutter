@@ -47,3 +47,18 @@ enum TX_Enum_PlayType {
   /// 本地视频文件
   PLAY_TYPE_LOCAL_VIDEO,
 }
+
+/// 画面的方向
+enum TX_Enum_Type_HomeOrientation {
+  ///< HOME 键在右边，横屏模式
+  HOME_ORIENTATION_RIGHT,
+
+  ///< HOME 键在下面，手机直播中最常见的竖屏直播模式
+  HOME_ORIENTATION_DOWN,
+
+  ///< HOME 键在左边，横屏模式
+  HOME_ORIENTATION_LEFT,
+
+  ///< HOME 键在上边，竖屏直播（适合小米 MIX2）
+  HOME_ORIENTATION_UP,
+}

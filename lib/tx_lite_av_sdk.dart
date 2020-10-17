@@ -139,6 +139,16 @@ class TxLiteAvSdkPlayer extends StatefulWidget {
 
 class _TxLiteAvSdkPlayerState extends State<TxLiteAvSdkPlayer> {
   @override
+  void initState() {
+    EventChannel eventChannel =
+        EventChannel("com.moosoul.tx_lite_av_sdk_live_player_event");
+    eventChannel.receiveBroadcastStream().listen((event) {
+      print("com.moosoul.tx_lite_av_sdk_live_player_event: $event");
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
       return UiKitView(
@@ -249,10 +259,11 @@ class TxLiteAvSdkPusher extends StatefulWidget {
   /// 设置本地摄像头预览画面的旋转方向。
   ///
   /// 取值为0、90、180和270（其他值无效），表示主播端摄像头预览视频的顺时针旋转角度。
-  Future<void> setRenderRotation(int rotation) async {
+  Future<void> setRenderRotation(
+      TX_Enum_Type_HomeOrientation orientation) async {
     return await _channel.invokeMethod(
       'setRenderRotation',
-      {"rotation": rotation},
+      {"orientation": orientation},
     );
   }
 

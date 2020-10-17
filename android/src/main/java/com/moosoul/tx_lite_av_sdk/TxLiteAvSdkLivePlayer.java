@@ -1,5 +1,6 @@
 package com.moosoul.tx_lite_av_sdk;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,18 +11,21 @@ import androidx.annotation.NonNull;
 
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
+import com.tencent.rtmp.ITXLivePlayListener;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
 import io.flutter.plugin.common.BinaryMessenger;
+import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.platform.PlatformView;
 
-public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.MethodCallHandler {
+public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.MethodCallHandler, EventChannel.StreamHandler, ITXLivePlayListener  {
     private final TXCloudVideoView view;
     private final TXLivePlayer livePlayer;
+    private EventChannel.EventSink eventSink;
 
     TxLiteAvSdkLivePlayer(Context context, BinaryMessenger messenger, int id) {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -31,6 +35,8 @@ public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.Method
         livePlayer = new TXLivePlayer(context);
         livePlayer.setPlayerView(view);
         MethodChannel channel = new MethodChannel(messenger, "tx_lite_av_sdk_live_player_"+id);
+        EventChannel eventChannel = new EventChannel(messenger, "com.moosoul.tx_lite_av_sdk_live_player_event");
+        eventChannel.setStreamHandler(this);
         channel.setMethodCallHandler(this);
 
     }
@@ -48,6 +54,27 @@ public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.Method
             Log.e("TxLiteAvSdkLivePlayer", e.toString());
             result.notImplemented();
         }
+    }
+
+    @Override
+    public void onListen(Object arguments, EventChannel.EventSink events) {
+        this.eventSink = events;
+    }
+
+    @Override
+    public void onCancel(Object arguments) {
+
+    }
+
+    @Override
+    public void onPlayEvent(int i, Bundle bundle) {
+        Log.i("TxLiteAvSdkLivePlayer", "on play event: " + i);
+        this.eventSink.success(i);
+    }
+
+    @Override
+    public void onNetStatus(Bundle bundle) {
+
     }
 
     public void startPlay(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
@@ -83,7 +110,11 @@ public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.Method
         result.success(null);
     }
 
-
+    public void setRenderRotation(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+        int orientation = (int)call.argument("orientation");
+        this.livePlayer.setRenderRotation(orientation);
+        result.success(orientation);
+    }
 
     @Override
     public View getView() {
