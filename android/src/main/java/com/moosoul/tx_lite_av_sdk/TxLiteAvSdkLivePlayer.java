@@ -69,7 +69,6 @@ public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.Method
     @Override
     public void onPlayEvent(int i, Bundle bundle) {
         Log.i("TxLiteAvSdkLivePlayer", "on play event: " + i);
-        this.eventSink.success(i);
     }
 
     @Override

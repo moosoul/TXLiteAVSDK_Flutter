@@ -97,7 +97,6 @@
 
 - (void)onPlayEvent:(int)EvtID withParam:(NSDictionary *)param {
   NSLog(@"tx_lite_av_sdk_live_player on play event %d", EvtID);
-  self.eventSink(@(EvtID));
 }
 
 - (FlutterError *)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)events {
