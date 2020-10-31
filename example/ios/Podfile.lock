@@ -1,12 +1,15 @@
 PODS:
   - Flutter (1.0.0)
-  - tx_lite_av_sdk (0.0.1):
+  - "permission_handler (5.0.1+1)":
     - Flutter
-    - TXLiteAVSDK_Professional (= 7.6.9360)
+  - tx_lite_av_sdk (0.0.7):
+    - Flutter
+    - TXLiteAVSDK_Professional
   - TXLiteAVSDK_Professional (7.6.9360)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - tx_lite_av_sdk (from `.symlinks/plugins/tx_lite_av_sdk/ios`)
 
 SPEC REPOS:
@@ -16,12 +19,15 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   tx_lite_av_sdk:
     :path: ".symlinks/plugins/tx_lite_av_sdk/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  tx_lite_av_sdk: 2a914d200ec3b8d5cbe3eba28bd7eb24f1a149ab
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
+  tx_lite_av_sdk: fb4647bae1c3783a9f4fc006140c401a6869f593
   TXLiteAVSDK_Professional: 0993da88b243cba8250f027903f8b5f0c08be1fa
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
