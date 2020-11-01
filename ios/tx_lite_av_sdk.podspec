@@ -4,19 +4,18 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'tx_lite_av_sdk'
-  s.version          = '0.0.2'
+  s.version          = '0.0.7'
   s.summary          = 'A new flutter plugin project.'
-  s.description      = <<-DESC
-A new flutter plugin project.
-                       DESC
-  s.homepage         = 'http://example.com'
+  s.description      = 'A new flutter plugin project.'
+  s.homepage         = 'https://965work.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'com.965work' => 'm.moosoul@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'TXLiteAVSDK_Professional'
+
   s.platform = :ios, '8.0'
   s.static_framework = true
 

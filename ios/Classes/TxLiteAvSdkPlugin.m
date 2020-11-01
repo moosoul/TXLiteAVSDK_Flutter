@@ -1,6 +1,7 @@
 #import "TxLiteAvSdkPlugin.h"
 #import "TxLiteAvSdkLivePlayerFactory.h"
-#import "TxLiteAvSdkLivePushFactory.h"
+#import "TxLiteAvSdkLivePusherFactory.h"
+#import "TxLiteAvSdkVodPlayerFactory.h"
 @import TXLiteAVSDK_Professional;
 
 
@@ -12,12 +13,14 @@
   TxLiteAvSdkPlugin* instance = [[TxLiteAvSdkPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 
-  TxLiteAvSdkLivePlayerFactory* playerFactory = [[TxLiteAvSdkLivePlayerFactory alloc] initWithMessenger:registrar.messenger];
-  [registrar registerViewFactory:playerFactory withId:@"tx_lite_av_sdk_live_player"];
+  TxLiteAvSdkLivePlayerFactory* livePlayerFactory = [[TxLiteAvSdkLivePlayerFactory alloc] initWithMessenger:registrar.messenger];
+  [registrar registerViewFactory:livePlayerFactory withId:@"tx_lite_av_sdk_live_player"];
   
-  TxLiteAvSdkLivePushFactory* pushFactory = [[TxLiteAvSdkLivePushFactory alloc] initWithMessenger:registrar.messenger];
+  TxLiteAvSdkVodPlayerFactory* vodPlayerFactory = [[TxLiteAvSdkVodPlayerFactory alloc] initWithMessenger:registrar.messenger];
+  [registrar registerViewFactory:vodPlayerFactory withId:@"tx_lite_av_sdk_vod_player"];
+  
+  TxLiteAvSdkLivePusherFactory* pushFactory = [[TxLiteAvSdkLivePusherFactory alloc] initWithMessenger:registrar.messenger];
   [registrar registerViewFactory:pushFactory withId:@"tx_lite_av_sdk_live_pusher"];
-  
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {

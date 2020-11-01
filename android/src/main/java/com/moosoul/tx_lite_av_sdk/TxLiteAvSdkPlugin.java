@@ -60,6 +60,7 @@ public class TxLiteAvSdkPlugin implements FlutterPlugin, MethodCallHandler, Acti
     context = flutterPluginBinding.getApplicationContext();
     flutterPluginBinding.getPlatformViewRegistry().registerViewFactory("tx_lite_av_sdk_live_player", new TxLiteAvSdkLivePlayerFactory(flutterPluginBinding.getBinaryMessenger()));
     flutterPluginBinding.getPlatformViewRegistry().registerViewFactory("tx_lite_av_sdk_live_pusher", new TxLiteAvSdkLivePusherFactory(flutterPluginBinding.getBinaryMessenger()));
+    flutterPluginBinding.getPlatformViewRegistry().registerViewFactory("tx_lite_av_sdk_vod_player", new TxLiteAvSdkVodPlayerFactory(flutterPluginBinding.getBinaryMessenger()));
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -76,6 +77,7 @@ public class TxLiteAvSdkPlugin implements FlutterPlugin, MethodCallHandler, Acti
     channel.setMethodCallHandler(new TxLiteAvSdkPlugin());
     registrar.platformViewRegistry().registerViewFactory("tx_lite_av_sdk_live_player", new TxLiteAvSdkLivePlayerFactory(registrar.messenger()));
     registrar.platformViewRegistry().registerViewFactory("tx_lite_av_sdk_live_pusher", new TxLiteAvSdkLivePusherFactory(registrar.messenger()));
+    registrar.platformViewRegistry().registerViewFactory("tx_lite_av_sdk_vod_player", new TxLiteAvSdkVodPlayerFactory(registrar.messenger()));
   }
 
 
