@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:tx_lite_av_sdk/tx_lite_av_sdk.dart';
+import 'package:tx_lite_av_sdk_example/pusher.dart';
 
 void main() {
   runApp(App());
@@ -87,6 +88,17 @@ class _MyAppState extends State<MyApp> {
       body: Center(
         child: Column(
           children: [
+            FlatButton(
+              child: Text('推流'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Pusher(),
+                  ),
+                );
+              },
+            ),
             Container(
               width: width,
               height: height,

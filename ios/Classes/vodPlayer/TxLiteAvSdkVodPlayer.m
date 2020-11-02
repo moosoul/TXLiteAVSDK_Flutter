@@ -82,6 +82,12 @@
   result(@(progress));
 }
 
+- (void)setRenderMode:(FlutterMethodCall * _Nonnull)call result:(FlutterResult _Nonnull)result {
+  TX_Enum_Type_RenderMode mode = [[call.arguments objectForKey:@"mode"] integerValue];
+  [self.vodPlayer setRenderMode:mode];
+  result(@(mode));
+}
+
 
 - (UIView *)view{
   return self.contentView;

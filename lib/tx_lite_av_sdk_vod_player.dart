@@ -57,9 +57,8 @@ class TxLiteAvSdkVodPlayer extends StatefulWidget {
   }
 
   /// 设置画面的裁剪模式。
-  Future<void> setRenderMode(int renderMode) async {
-    return await _methodChannel
-        .invokeMethod('setRenderMode', {"renderMode": renderMode});
+  Future<void> setRenderMode(TX_Enum_Type_RenderMode mode) async {
+    return await _methodChannel.invokeMethod('setRenderMode', {"mode": mode});
   }
 
   /// 截图

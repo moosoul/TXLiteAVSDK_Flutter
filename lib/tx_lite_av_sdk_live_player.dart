@@ -49,9 +49,8 @@ class TxLiteAvSdkLivePlayer extends StatefulWidget {
   }
 
   /// 设置画面的裁剪模式。
-  Future<void> setRenderMode(int renderMode) async {
-    return await _channel
-        .invokeMethod('setRenderMode', {"renderMode": renderMode});
+  Future<void> setRenderMode(TX_Enum_Type_RenderMode mode) async {
+    return await _channel.invokeMethod('setRenderMode', {"mode": mode});
   }
 
   /// 截图
@@ -81,11 +80,6 @@ class TxLiteAvSdkLivePlayer extends StatefulWidget {
   /// 是否显示播放状态统计及事件消息浮层 view
   Future<void> showVideoDebugLog(bool isShow) async {
     return await _channel.invokeMethod("showVideoDebugLog", {"isShow": isShow});
-  }
-
-  Future<void> setText(String text) async {
-    assert(text != null);
-    return _channel.invokeMethod('setText', text);
   }
 }
 

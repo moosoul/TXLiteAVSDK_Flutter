@@ -115,6 +115,12 @@ public class TxLiteAvSdkLivePlayer implements PlatformView, MethodChannel.Method
         result.success(orientation);
     }
 
+    public void setRenderMode(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+        int mode = (int)call.argument("mode");
+        this.livePlayer.setRenderMode(mode);
+        result.success(mode);
+    }
+
     @Override
     public View getView() {
         return this.view;

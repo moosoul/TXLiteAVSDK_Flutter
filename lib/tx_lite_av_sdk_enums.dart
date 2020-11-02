@@ -62,3 +62,12 @@ enum TX_Enum_Type_HomeOrientation {
   ///< HOME 键在上边，竖屏直播（适合小米 MIX2）
   HOME_ORIENTATION_UP,
 }
+
+/// 画面填充模式
+enum TX_Enum_Type_RenderMode {
+  ///< 图像铺满屏幕，不留黑边，如果图像宽高比不同于屏幕宽高比，部分画面内容会被裁剪掉。
+  RENDER_MODE_FILL_SCREEN,
+
+  ///< 图像适应屏幕，保持画面完整，但如果图像宽高比不同于屏幕宽高比，会有黑边的存在。
+  RENDER_MODE_FILL_EDGE,
+}

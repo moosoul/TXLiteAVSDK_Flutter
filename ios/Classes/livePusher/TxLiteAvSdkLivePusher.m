@@ -26,7 +26,7 @@
     
     TXLivePushConfig *_config = [[TXLivePushConfig alloc] init];  // 一般情况下不需要修改默认 config
     self.push = [[TXLivePush alloc] initWithConfig: _config]; // config 参数不能为空
- 
+    
     self.channel = [FlutterMethodChannel methodChannelWithName:[NSString stringWithFormat:@"tx_lite_av_sdk_live_pusher_%ld", (long)viewId] binaryMessenger:messenger];
 
     __weak typeof(self) weakSelf = self;
@@ -45,15 +45,13 @@
 }
 
 - (void)startPreview:(FlutterMethodCall * _Nonnull)call result:(FlutterResult  _Nonnull)result {
-  UIView *_localView = [[UIView alloc] initWithFrame:self.view.bounds];
-  [self.contentView  insertSubview:_localView atIndex:0];
-  _localView.center = self.contentView.center;
-  int code = [self.push startPreview:_localView];
+  int code = [self.push startPreview:self.contentView];
   result(@(code));
 }
 
 - (void)stopPreview:(FlutterMethodCall * _Nonnull)call result:(FlutterResult  _Nonnull)result {
   [self.push stopPreview];
+  result(@(true));
 }
 
 - (void)startPush:(FlutterMethodCall * _Nonnull)call result:(FlutterResult  _Nonnull)result {

@@ -122,6 +122,12 @@ public class TxLiteAvSdkVodPlayer implements PlatformView, MethodChannel.MethodC
         result.success(orientation);
     }
 
+    public void setRenderMode(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+        int mode = (int)call.argument("mode");
+        this.vodPlayer.setRenderMode(mode);
+        result.success(mode);
+    }
+
     public void seek(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         double progress = (double)call.argument("progress");
         float progressValue = (float)progress;
