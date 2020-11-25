@@ -164,6 +164,7 @@ public class TxLiteAvSdkLivePusher implements PlatformView, MethodChannel.Method
 
     @Override
     public void dispose() {
-
+        this.pusher.stopCameraPreview(true);
+        this.pusher.stopPusher();
     }
 }

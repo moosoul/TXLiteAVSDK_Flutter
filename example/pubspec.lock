@@ -159,9 +159,9 @@ packages:
   tx_lite_av_sdk:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      name: tx_lite_av_sdk
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.9"
   typed_data:
     dependency: transitive
